@@ -1,0 +1,136 @@
+<html>
+<head>
+   <title>Home Page</title>
+   <h1>EC2 Instance Details & Operations</h1>
+   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+   
+</head>
+
+<body>
+
+	<button type="button" onclick="post_request('/')">Refresh</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="post_request('/start')">Start</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="post_request('/stop')">Stop</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="post_request('/reboot')">Reboot</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="post_request('/terminate')">Terminate</button>
+	</br></br>
+	<form>
+		<table border="5">
+			<tr>
+				<td>Select</td>
+				<td>InstanceId</td>
+				<td>InstanceType</td>
+				<td>ImageId</td>
+				<td>AvailabiityZone</td>
+				<td>InstanceState</td>
+				<td>SecurityGroup</td>
+				<td>RootDeviceType</td>
+				<td>KeyName</td>
+				<td>Tags</td>
+				<td>LaunchTime</td>
+				
+			</tr>
+			{{#each instances}}
+			<tr>
+				<td><input type="checkbox" name="check_instances" value={{InstanceId}}></td>
+				<td>{{InstanceId}}</td>
+				<td>{{InstanceType}}</td>
+				<td>{{ImageId}}</td>
+				<td>{{AvailabiityZone}}</td>
+				<td>{{InstanceState}}</td>
+				<td>{{SecurityGroup}}</td>
+				<td>{{RootDeviceType}}</td>
+				<td>{{KeyName}}</td>
+				<td>{{Tags}}</td>
+				<td>{{LaunchTime}}</td>
+				
+			</tr>
+			{{/each}}
+		</table>
+	</form>
+	
+	<form>
+		<input type = "text" id = "ami_name" placeholder = "Enter AMI name">
+		<button type="button" onclick="create_image('/ami')">Create AMI</button>
+	</form>
+	
+	</br>
+	<h2>Quick Create Amazon Linux AMI Instances - - - - - - - - - - - - - -- - </h12></br></br>
+
+	<form id="create" name="create">
+		
+		<table border = "0">
+		<tr>
+		<td align = "center">	
+			<label for="type">Instance Type</label>
+		</td>
+		<td align = "center">
+		<select name="regions" size = "1" onchange="javascript: 				dropdownlist(this.options[this.selectedIndex].value);">
+		<option select>Select Your Region</option>
+		<option value="1">US East N. Virginia</option>
+		<option value="2a">US West Oregon</option>
+		<option value="2b">US West N. California</option>
+		<option value="3">EU Ireland</option>
+		<option value="4a">Asia Pacific Singapore</option>
+		<option value="4b">Asia Pacific Tokyo</option>
+		<option value="4c">Asia Pacific Sydney</option>
+		<option value="5">South America São Paolo</option>
+		<option value="6">AWS GovCloud</option>
+		</select>
+		</td>
+		<td align = "center">
+			<label for="security">Security Group</label>
+		</td>
+		<td align = "center">
+			<label for="key">Key Name</label>
+		</td>
+		<td align = "center">
+			<label for="tag">Tag</label>
+		</td>
+		</tr>
+		<tr>
+		<td align = "center">
+		<select name="instancetypes" size = "1" onchange="javascript: 				set_type(this.options[this.selectedIndex].value);">
+		<option value ="select" selected>Select Type</option>	
+		<option value="t1.micro">t1.micro</option>
+		<option value="m1.small">m1.small</option>
+		<option value="m1.medium">m1.medium</option>
+		<option value="m1.large">m1.large</option>
+		<option value="m1.xlarge">m1.xlarge</option>
+		<option value="m2.xlarge">m2.xlarge</option>
+		<option value="m2.2xlarge">m2.2xlarge</option>
+		<option value="m2.4xlarge">m2.4xlarge</option>
+		<option value="m3.xlarge">m3.xlarge</option>
+		<option value="m3.2xlarge">m3.2xlarge</option>
+		<option value="c1.medium">c1.medium</option>
+		<option value="c1.xlarge">c1.xlarge</option>
+		<option value="hi1.4xlarge">hi1.4xlarge</option>
+		<option value="hs1.8xlarge">hs1.8xlarge</option>
+		<option value="cc1.4xlarge">cc1.4xlarge</option>
+		<option value="cc2.8xlarge">cc2.8xlarge</option>
+		<option value="cg1.4xlarge">cg1.4xlarge</option>
+		<option value="cr1.8xlarge">cr1.8xlarge</option>
+		</select>
+	</td>
+			<td align = "center">
+				<select name="imageid" id="imageid" onchange="javascript: 				set_region_img(this.options[this.selectedIndex].value);">
+				<option value="img_id">Select Region for Images</option>
+				</select>
+			</td>
+			<td align = "center"><input type="text" id="security" placeholder="your security group"></td>
+			<td align = "center"><input type="text" id="key" placeholder="your key name"></td>
+			<td align = "center"><input type="text" id="tag" placeholder="no name"></td>
+		</tr>
+	</table>
+		<button type="button" onclick="create_request('/create')">CREATE</button>
+	</form>
+
+   	 	<script src="http://code.jquery.com/jquery.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/javascripts/index.script.js"></script>
+</body>
+</html>
